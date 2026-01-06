@@ -1,0 +1,310 @@
+<!DOCTYPE html>
+<html lang="si">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>චෙස් ක්‍රීඩාව හැඳින්වීම - Chess Saviya</title>
+    
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Serif+Sinhala:wght@400;700&family=Poppins:wght@400;600&display=swap" rel="stylesheet">
+
+    <style>
+        :root {
+            --yt-red: #FF0000;
+            --white: #ffffff;
+            --bg-light: #f8faff;
+            --text-dark: #1a1a1a;
+            --text-gray: #444444;
+            --transition: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            background-color: var(--bg-light);
+            color: var(--text-dark);
+            line-height: 1.8;
+            overflow-x: hidden;
+        }
+
+        /* Typography */
+        h1, .sinhala-text, .channel-name {
+            font-family: 'Noto Serif Sinhala', serif;
+        }
+
+        p, span, .english-text {
+            font-family: 'Poppins', sans-serif;
+        }
+
+        .container {
+            max-width: 900px;
+            margin: 40px auto 0; /* Top margin 40px, Bottom 0 */
+            padding: 0 20px;
+            position: relative;
+            z-index: 2;
+        }
+
+        /* Title Styling */
+        .lesson-title {
+            font-size: 2.2rem;
+            color: #0062FF;
+            text-align: center;
+            margin-bottom: 40px;
+            font-weight: 700;
+        }
+
+        /* Ambilight Container */
+        .video-container-relative {
+            position: relative;
+            margin-bottom: 20px; /* Reduced space below video card */
+        }
+
+        /* Dynamic Ambilight Effect - Only behind the video */
+        .ambilight-glow {
+            position: absolute;
+            top: 5%;
+            left: 5%;
+            width: 90%;
+            height: 90%;
+            background-size: cover;
+            background-position: center;
+            filter: blur(60px);
+            opacity: 0.4;
+            z-index: 1;
+            border-radius: 24px;
+        }
+
+        /* Video Card */
+        .video-card {
+            background: var(--white);
+            border-radius: 24px;
+            overflow: hidden;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.08);
+            position: relative;
+            z-index: 2;
+        }
+
+        .video-wrapper {
+            position: relative;
+            width: 100%;
+            aspect-ratio: 16 / 9;
+            background: #000;
+        }
+
+        /* Facade (Play Button Overlay) */
+        #facade {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-size: cover;
+            background-position: center;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            cursor: pointer;
+            z-index: 10;
+        }
+
+        /* Official YouTube Red Play Button */
+        .custom-play-btn {
+            width: 68px;
+            height: 48px;
+            background-color: var(--yt-red);
+            border-radius: 12px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            transition: var(--transition);
+            box-shadow: 0 4px 15px rgba(255, 0, 0, 0.3);
+        }
+
+        .custom-play-btn svg {
+            width: 22px;
+            fill: white;
+        }
+
+        #facade:hover .custom-play-btn {
+            transform: scale(1.1);
+            background-color: #e60000;
+            box-shadow: 0 6px 20px rgba(255, 0, 0, 0.4);
+        }
+
+        /* Info Section Styling */
+        .channel-info {
+            display: flex;
+            align-items: center;
+            padding: 10px 25px;
+            border-bottom: 1px solid #f0f0f0;
+        }
+
+        .channel-logo {
+            width: 48px;
+            height: 48px;
+            border-radius: 50%;
+            margin-right: 15px;
+            object-fit: cover;
+            border: 2px solid #eef2ff;
+        }
+
+        .channel-name {
+            font-weight: 600;
+            font-size: 0.9rem;
+        }
+
+        .description-content {
+            padding: 25px;
+        }
+
+        .desc-text {
+            font-size: 1.15rem;
+            margin-bottom: 20px;
+            color: var(--text-gray);
+        }
+
+        /* Trainer Box */
+        .trainer-box {
+            background: #f0f5ff;
+            border-left: 5px solid #0062FF;
+            padding: 20px;
+            border-radius: 12px;
+        }
+
+        .trainer-link {
+            display: block;
+            margin-top: 12px;
+            color: #0062FF;
+            font-weight: 600;
+            text-decoration: none;
+            font-size: 1rem;
+            font-family: 'Poppins', sans-serif;
+        }
+
+        /* Footer - Reduced margin top */
+        footer {
+            text-align: center;
+            padding: 20px 0;
+            font-family: 'Poppins', sans-serif;
+            font-size: 0.85rem;
+            color: #888;
+        }
+
+        /* 3rem spacer at the very bottom */
+        .bottom-spacer { 
+            height: 3rem; 
+        }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            .lesson-title { font-size: 1.7rem; }
+            .desc-text { font-size: 1.05rem; }
+            .custom-play-btn { width: 60px; height: 42px; }
+        }
+    </style>
+</head>
+<body>
+
+    <div class="container">
+        <div class="video-container-relative">
+            <div id="ambilight" class="ambilight-glow"></div>
+            
+            <div class="video-card">
+                <div class="video-wrapper">
+                    <div id="facade">
+                        <div class="custom-play-btn">
+                            <svg viewBox="0 0 24 24"><path d="M8 5v14l11-7z"></path></svg>
+                        </div>
+                    </div>
+                    <div id="player"></div>
+                </div>
+
+                <div class="channel-info">
+                    <img src="https://i.postimg.cc/d1Qx9Vg1/CCA-Logo.png" alt="CCA Logo" class="channel-logo">
+                    <div class="channel-name">Chamiranga Chess Academy</div>
+                </div>
+
+                <div class="description-content">
+                    <p class="desc-text sinhala-text">
+                        චෙස් මූලික දැනුමට අදාල පාඩම් මාලාවේ සිව්වන පාඩම වන මෙයින් ඔබට චෙක් හා චෙක්මේට් කරන ආකාරය පිළිබඳ හොඳ අවබෝධයක් ලබාගත හැක.
+                    </p>
+                    
+                    <div class="trainer-box">
+                        <p class="desc-text sinhala-text" style="margin-bottom: 0; font-size: 1.05rem;">
+                            ඉහත දැක්වෙන කාසලින් කිරීම චෙස් පුවරුව තුළ හොඳින් පුහුණු වීම සඳහා Chess Trainer වෙත පිවිසෙන්න!
+                        </p>
+                        <div class="trainer-link">
+                            Chess Trainer > Basics Trainer > Chess Special Moves > Castling ⏩♟️
+                        </div>
+                    </div>
+                    <br>
+                     <div class="trainer-box">
+                        <p class="desc-text sinhala-text" style="margin-bottom: 0; font-size: 1.05rem;">
+                            ඒ වගේම Chess Puzzles වෙත පිවිස ඔබට මෙම කාසලින් කිරීමට අදාළ චෙස් ප්‍රහේළිකා විසඳන්න පුළුවන්!
+                        </p>
+                        <div class="trainer-link">
+                            Chess Puzzles > Special Puzzles > Moving Puzzles > Castling ⏩🧩️
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <footer>
+            <p>&copy; <span id="year"></span> CHESS SAVIYA</p>
+        </footer>
+
+        <div class="bottom-spacer"></div>
+    </div>
+
+    <script>
+        document.getElementById('year').textContent = new Date().getFullYear();
+
+        const VIDEO_ID = '2gXhBCbWw8o';
+        const START_TIME = 40;
+        const facade = document.getElementById('facade');
+        const ambilight = document.getElementById('ambilight');
+
+        const thumbUrl = `https://img.youtube.com/vi/${VIDEO_ID}/maxresdefault.jpg`;
+        facade.style.backgroundImage = `url('${thumbUrl}')`;
+        ambilight.style.backgroundImage = `url('${thumbUrl}')`;
+
+        var tag = document.createElement('script');
+        tag.src = "https://www.youtube.com/iframe_api";
+        var firstScriptTag = document.getElementsByTagName('script')[0];
+        firstScriptTag.parentNode.insertBefore(tag, firstScriptTag);
+
+        var player;
+        function onYouTubeIframeAPIReady() {
+            facade.addEventListener('click', () => {
+                facade.style.display = 'none';
+                initPlayer();
+            });
+        }
+
+        function initPlayer() {
+            player = new YT.Player('player', {
+                height: '100%',
+                width: '100%',
+                videoId: VIDEO_ID,
+                playerVars: {
+                    'autoplay': 1,
+                    'controls': 1,
+                    'rel': 0,
+                    'start': START_TIME,
+                    'modestbranding': 1,
+                    'playsinline': 1
+                },
+                events: {
+                    'onReady': (event) => { event.target.playVideo(); }
+                }
+            });
+        }
+    </script>
+
+</body>
+
+</html>
