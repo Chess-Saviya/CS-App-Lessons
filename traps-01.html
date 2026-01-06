@@ -1,0 +1,379 @@
+<!DOCTYPE html>
+<html lang="si">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>චෙස් ක්‍රීඩාව හැඳින්වීම - Chess Saviya</title>
+    
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Serif+Sinhala:wght@400;700&family=Poppins:wght@400;600&display=swap" rel="stylesheet">
+
+    <style>
+        :root {
+            --yt-red: #FF0000;
+            --white: #ffffff;
+            --bg-light: #f8faff;
+            --text-dark: #1a1a1a;
+            --text-gray: #444444;
+            --accent-blue: #0062FF;
+            --transition: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            background-color: var(--bg-light);
+            color: var(--text-dark);
+            line-height: 1.8;
+            overflow-x: hidden;
+        }
+
+        /* Typography */
+        h1, .sinhala-text, .channel-name {
+            font-family: 'Noto Serif Sinhala', serif;
+        }
+
+        p, span, li, .english-text, .poppins-font {
+            font-family: 'Poppins', sans-serif;
+        }
+
+        .container {
+            max-width: 900px;
+            margin: 40px auto 0;
+            padding: 0 20px;
+            position: relative;
+            z-index: 2;
+        }
+
+        /* Ambilight Container */
+        .video-container-relative {
+            position: relative;
+            margin-bottom: 20px;
+        }
+
+        .ambilight-glow {
+            position: absolute;
+            top: 5%;
+            left: 5%;
+            width: 90%;
+            height: 90%;
+            background-size: cover;
+            background-position: center;
+            filter: blur(60px);
+            opacity: 0.4;
+            z-index: 1;
+            border-radius: 24px;
+        }
+
+        /* Video Card */
+        .video-card {
+            background: var(--white);
+            border-radius: 24px;
+            overflow: hidden;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.08);
+            position: relative;
+            z-index: 2;
+        }
+
+        .video-wrapper {
+            position: relative;
+            width: 100%;
+            aspect-ratio: 16 / 9;
+            background: #000;
+        }
+
+        #facade {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-size: cover;
+            background-position: center;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            cursor: pointer;
+            z-index: 10;
+        }
+
+        .custom-play-btn {
+            width: 68px;
+            height: 48px;
+            background-color: var(--yt-red);
+            border-radius: 12px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            transition: var(--transition);
+            box-shadow: 0 4px 15px rgba(255, 0, 0, 0.3);
+        }
+
+        .custom-play-btn svg {
+            width: 22px;
+            fill: white;
+        }
+
+        #facade:hover .custom-play-btn {
+            transform: scale(1.1);
+            background-color: #e60000;
+        }
+
+        /* Info Section Styling */
+        .channel-info {
+            display: flex;
+            align-items: center;
+            padding: 10px 25px;
+            border-bottom: 1px solid #f0f0f0;
+        }
+
+        .channel-logo {
+            width: 48px;
+            height: 48px;
+            border-radius: 50%;
+            margin-right: 15px;
+            object-fit: cover;
+            border: 2px solid #eef2ff;
+        }
+
+        .channel-name {
+            font-weight: 600;
+            font-size: 0.9rem;
+        }
+
+        .description-content {
+            padding: 25px;
+        }
+
+        .desc-text {
+            font-size: 1.15rem;
+            margin-bottom: 20px;
+            color: var(--text-gray);
+        }
+
+        /* Traps & CTA Buttons Styling */
+        .traps-container {
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+            margin-bottom: 30px;
+        }
+
+        .trap-item {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            background: #ffffff;
+            border: 1px solid #e2e8f0;
+            padding: 12px 20px;
+            border-radius: 15px;
+            transition: var(--transition);
+            text-decoration: none;
+            cursor: pointer;
+            font-family: 'Poppins', sans-serif; /* CTA Section Font */
+        }
+
+        .trap-item:hover {
+            border-color: var(--accent-blue);
+            background: #f0f6ff;
+            transform: translateX(5px);
+        }
+
+        .trap-name {
+            font-weight: 600;
+            font-size: 1.1rem;
+            color: var(--text-dark);
+        }
+
+        .cta-play-now {
+            background: var(--accent-blue);
+            color: white;
+            padding: 6px 14px;
+            border-radius: 8px;
+            font-size: 0.85rem;
+            font-weight: 600;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            font-family: 'Poppins', sans-serif;
+        }
+
+        .cta-play-now svg {
+            width: 14px;
+            fill: white;
+        }
+
+        /* Trainer Box */
+        .trainer-box {
+            background: #f0f5ff;
+            border-left: 5px solid var(--accent-blue);
+            padding: 20px;
+            border-radius: 12px;
+            margin-top: 20px;
+        }
+
+        .trainer-link {
+            display: block;
+            margin-top: 12px;
+            color: var(--accent-blue);
+            font-weight: 600;
+            text-decoration: none;
+            font-size: 0.95rem;
+            font-family: 'Poppins', sans-serif; /* Specific requirement */
+        }
+
+        footer {
+            text-align: center;
+            padding: 20px 0;
+            font-size: 0.85rem;
+            color: #888;
+        }
+
+        .bottom-spacer { 
+            height: 3rem; 
+        }
+
+        @media (max-width: 768px) {
+            .desc-text { font-size: 1.05rem; }
+            .trap-item { padding: 10px 15px; }
+            .trap-name { font-size: 1rem; }
+            .trainer-link { font-size: 0.85rem; }
+        }
+    </style>
+</head>
+<body>
+
+    <div class="container">
+        <div class="video-container-relative">
+            <div id="ambilight" class="ambilight-glow"></div>
+            
+            <div class="video-card">
+                <div class="video-wrapper">
+                    <div id="facade">
+                        <div class="custom-play-btn">
+                            <svg viewBox="0 0 24 24"><path d="M8 5v14l11-7z"></path></svg>
+                        </div>
+                    </div>
+                    <div id="player"></div>
+                </div>
+
+                <div class="channel-info">
+                    <img src="https://i.postimg.cc/d1Qx9Vg1/CCA-Logo.png" alt="CCA Logo" class="channel-logo">
+                    <div class="channel-name">Chamiranga Chess Academy</div>
+                </div>
+
+                <div class="description-content">
+                    <p class="desc-text sinhala-text">
+                        චෙස් තරඟයක් ආරම්භයේදී ම ජයග්‍රහණය කළ හැකි උපායශීලී ක්‍රම 3ක් හා ඒවායෙන් ආරක්ෂා විය යුතු ආකාරය පිළිබඳ මෙම වීඩියෝව තුළින් සාකච්ඡා කෙරේ.
+                    </p>
+
+                    <div class="traps-container">
+                        <div class="trap-item" onclick="playVideoAt(93)">
+                            <span class="trap-name">Legal Trap</span>
+                            <div class="cta-play-now">
+                                Watch Now <svg viewBox="0 0 24 24"><path d="M8 5v14l11-7z"></path></svg>
+                            </div>
+                        </div>
+
+                        <div class="trap-item" onclick="playVideoAt(432)">
+                            <span class="trap-name">Scholars Mate</span>
+                            <div class="cta-play-now">
+                                Watch Now <svg viewBox="0 0 24 24"><path d="M8 5v14l11-7z"></path></svg>
+                            </div>
+                        </div>
+
+                        <div class="trap-item" onclick="playVideoAt(651)">
+                            <span class="trap-name">Fried Liver Trap</span>
+                            <div class="cta-play-now">
+                                Watch Now <svg viewBox="0 0 24 24"><path d="M8 5v14l11-7z"></path></svg>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="trainer-box">
+                        <p class="desc-text sinhala-text" style="margin-bottom: 0; font-size: 1.05rem;">
+                            ඉහත දැක්වෙන චෙස් උගුල් චෙස් පුවරුව තුළ හොඳින් ඔබගේ මතකයෙන් පුහුණු වීම සඳහා Chess Trainer වෙත පිවිසෙන්න!
+                        </p>
+                        <div class="trainer-link">
+                            Chess Trainer > Traps Trainer > Traps for White ⏩♟️
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <footer>
+            <p>&copy; <span id="year"></span> CHESS SAVIYA</p>
+        </footer>
+
+        <div class="bottom-spacer"></div>
+    </div>
+
+    <script>
+        document.getElementById('year').textContent = new Date().getFullYear();
+
+        const VIDEO_ID = 'J7BuqkB16JI';
+        const facade = document.getElementById('facade');
+        const ambilight = document.getElementById('ambilight');
+
+        // Setup Thumbnail
+        const thumbUrl = `https://img.youtube.com/vi/${VIDEO_ID}/maxresdefault.jpg`;
+        facade.style.backgroundImage = `url('${thumbUrl}')`;
+        ambilight.style.backgroundImage = `url('${thumbUrl}')`;
+
+        // Load YouTube API
+        var tag = document.createElement('script');
+        tag.src = "https://www.youtube.com/iframe_api";
+        var firstScriptTag = document.getElementsByTagName('script')[0];
+        firstScriptTag.parentNode.insertBefore(tag, firstScriptTag);
+
+        var player;
+
+        function onYouTubeIframeAPIReady() {
+            facade.addEventListener('click', () => {
+                startPlayerAt(1); 
+            });
+        }
+
+        function startPlayerAt(seconds) {
+            facade.style.display = 'none';
+            player = new YT.Player('player', {
+                height: '100%',
+                width: '100%',
+                videoId: VIDEO_ID,
+                playerVars: {
+                    'autoplay': 1,
+                    'controls': 1,
+                    'rel': 0,
+                    'start': seconds,
+                    'modestbranding': 1,
+                    'playsinline': 1
+                },
+                events: {
+                    'onReady': (event) => { 
+                        event.target.playVideo(); 
+                    }
+                }
+            });
+        }
+
+        // Action when clicking trap CTA
+        function playVideoAt(seconds) {
+            if (!player) {
+                startPlayerAt(seconds);
+            } else {
+                facade.style.display = 'none';
+                player.seekTo(seconds, true);
+                player.playVideo();
+                
+                // Scroll to video card
+                document.querySelector('.video-card').scrollIntoView({ behavior: 'smooth' });
+            }
+        }
+    </script>
+
+</body>
+</html>
