@@ -244,7 +244,7 @@
         const ambilight = document.getElementById('ambilight');
 
         // Shorts වීඩියෝවට අදාළ Thumbnail එක ලබා ගැනීම
-        const thumbUrl = `https://img.youtube.com/vi/${VIDEO_ID}/maxresdefault.jpg`;
+        const thumbUrl = `https://img.youtube.com/vi/${VIDEO_ID}/hqdefault.jpg`;
         facade.style.backgroundImage = `url('${thumbUrl}')`;
         ambilight.style.backgroundImage = `url('${thumbUrl}')`;
 
@@ -274,7 +274,8 @@
                     'modestbranding': 1,
                     'playsinline': 1,
                     'loop': 1,
-                    'playlist': VIDEO_ID // Shorts වීඩියෝ ලූප් වීමට අවශ්‍ය වේ
+                    'playlist': VIDEO_ID, // Shorts වීඩියෝ ලූප් වීමට අවශ්‍ය වේ
+                    'fs': 1
                 },
                 events: {
                     'onReady': (event) => { event.target.playVideo(); }
