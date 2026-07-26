@@ -263,7 +263,7 @@
         const ambilight = document.getElementById('ambilight');
 
         // Setup dynamic thumbnails
-        const thumbUrl = `https://img.youtube.com/vi/${VIDEO_ID}/maxresdefault.jpg`;
+        const thumbUrl = `https://img.youtube.com/vi/${VIDEO_ID}/hqdefault.jpg`;
         facade.style.backgroundImage = `url('${thumbUrl}')`;
         ambilight.style.backgroundImage = `url('${thumbUrl}')`;
 
@@ -292,7 +292,8 @@
                     'rel': 0,
                     'start': START_TIME,
                     'modestbranding': 1,
-                    'playsinline': 1
+                    'playsinline': 1,
+                    'fs': 1
                 },
                 events: {
                     'onReady': (event) => { event.target.playVideo(); }
